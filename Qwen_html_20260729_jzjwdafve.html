@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Викулечки 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffdde1 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированные частицы на фоне */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1.5em;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.6;
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5);
+            }
+            to {
+                text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,182,193,0.6);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 
+                        inset 0 1px 0 rgba(255,255,255,0.8);
+            border: 2px solid rgba(255,255,255,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2), 
+                        inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+
+        .compliment-section h2 {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        #compliment-text {
+            font-size: 1.3em;
+            color: #2d3436;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            min-height: 80px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 15px;
+            border-left: 5px solid #e17055;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            font-style: italic;
+            position: relative;
+        }
+
+        #compliment-text::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 3em;
+            color: rgba(225, 112, 85, 0.3);
+            font-family: Georgia, serif;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .game-section h2 {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .game-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        /* Игра "Поймай сердце" */
+        .heart-game {
+            position: relative;
+            height: 350px;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid #ffb6c1;
+            box-shadow: inset 0 2px 10px rgba(255, 182, 193, 0.3);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2.5em;
+            animation: fall linear infinite;
+            user-select: none;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+            transition: transform 0.2s;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes fall {
+            from {
+                top: -60px;
+            }
+            to {
+                top: 370px;
+            }
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5em;
+            color: #e91e63;
+            margin-top: 15px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Игра "Угадай число" */
+        .guess-game {
+            text-align: center;
+        }
+
+        .guess-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .guess-input:focus {
+            outline: none;
+            border-color: #a29bfe;
+            box-shadow: 0 0 15px rgba(162, 155, 254, 0.3);
+        }
+
+        .guess-result {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 30px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .success {
+            color: #00b894;
+            background: rgba(0, 184, 148, 0.1);
+        }
+
+        .error {
+            color: #d63031;
+            background: rgba(214, 48, 49, 0.1);
+        }
+
+        .hint {
+            color: #fdcb6e;
+            background: rgba(253, 203, 110, 0.1);
+        }
+
+        /* Игра "Колесо фортуны" */
+        .wheel-container {
+            text-align: center;
+            position: relative;
+        }
+
+        .wheel {
+            width: 280px;
+            height: 280px;
+            margin: 25px auto;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff6b6b 0deg 60deg,
+                #ffd93d 60deg 120deg,
+                #6bcf7f 120deg 180deg,
+                #4d96ff 180deg 240deg,
+                #9b59b6 240deg 300deg,
+                #ff9ff3 300deg 360deg
+            );
+            position: relative;
+            transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3),
+                        inset 0 0 20px rgba(255,255,255,0.3);
+            border: 5px solid white;
+        }
+
+        .wheel::before {
+            content: '💝';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5em;
+            z-index: 10;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+        }
+
+        .pointer {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #e91e63;
+            margin: 0 auto;
+            position: relative;
+            top: -15px;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+        }
+
+        .wheel-result {
+            margin-top: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #6c5ce7;
+            min-height: 40px;
+            padding: 15px;
+            background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .hearts-decoration {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 25px 0;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .game-description {
+            margin-bottom: 15px;
+            color: #636e72;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .wheel {
+                width: 230px;
+                height: 230px;
+            }
+            
+            button {
+                padding: 15px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированные частицы -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <h1>Для Викулечки 💖</h1>
+        
+        <div class="hearts-decoration">💕 💗 💓 💝 💖</div>
+
+        <!-- Генератор комплиментов -->
+        <div class="card compliment-section">
+            <h2>✨ Комплимент для тебя</h2>
+            <div id="compliment-text">Нажми кнопку, чтобы получить комплимент!</div>
+            <button class="btn-primary" onclick="generateCompliment()">Получить комплимент 💌</button>
+        </div>
+
+        <!-- Игра 1: Поймай сердце -->
+        <div class="card game-section">
+            <h2>🎮 Поймай сердечко</h2>
+            <p class="game-description">Кликай на падающие сердечки!</p>
+            <div class="heart-game" id="heartGame"></div>
+            <div class="score-display">Счёт: <span id="score">0</span></div>
+            <button class="btn-primary" onclick="startHeartGame()" style="margin-top: 15px;">Начать игру</button>
+        </div>
+
+        <!-- Игра 2: Угадай число -->
+        <div class="card game-section">
+            <h2>🎲 Угадай число</h2>
+            <p class="game-description">Я загадал число от 1 до 100</p>
+            <div class="guess-game">
+                <input type="number" class="guess-input" id="guessInput" placeholder="Введи число..." min="1" max="100">
+                <button class="btn-primary" onclick="checkGuess()">Проверить</button>
+                <button class="btn-primary" onclick="resetGuessGame()" style="margin-top: 10px; background: linear-gradient(135deg, #ff6b6b, #ee5a5a);">Новая игра</button>
+                <div class="guess-result" id="guessResult"></div>
+            </div>
+        </div>
+
+        <!-- Игра 3: Колесо фортуны -->
+        <div class="card game-section">
+            <h2>🎡 Колесо фортуны</h2>
+            <div class="wheel-container">
+                <div class="pointer"></div>
+                <div class="wheel" id="wheel"></div>
+                <button class="btn-primary" onclick="spinWheel()">Крутить колесо!</button>
+                <div class="wheel-result" id="wheelResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание анимированных частиц
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const emojis = ['💖', '💕', '💗', '💓', '✨', '🌟', '💫'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Генератор комплиментов
+        const compliments = [
+            "Ты самая красивая девушка на свете! 🌟",
+            "Твоя улыбка освещает мой день ☀️",
+            "С тобой каждый момент становится особенным 💫",
+            "Ты невероятно умная и интересная 📚",
+            "Твои глаза - это целая вселенная ✨",
+            "Рядом с тобой я чувствую себя самым счастливым человеком 💖",
+            "Ты делаешь этот мир лучше просто своим присутствием 🌍",
+            "Твоя доброта не знает границ 💝",
+            "Ты вдохновляешь меня становиться лучше каждый день 🚀",
+            "С тобой даже обычный день превращается в праздник 🎉",
+            "Ты как солнечный лучик в пасмурный день 🌈",
+            "Твой смех - самая прекрасная мелодия 🎵",
+            "Ты уникальная и неповторимая, как звезда на небе ⭐",
+            "Рядом с тобой время летит незаметно ⏰",
+            "Ты заслуживаешь всего самого лучшего в этом мире 👑"
+        ];
+
+        function generateCompliment() {
+            const randomIndex = Math.floor(Math.random() * compliments.length);
+            document.getElementById('compliment-text').textContent = compliments[randomIndex];
+        }
+
+        // Игра "Поймай сердце"
+        let score = 0;
+        let gameActive = false;
+        let heartsInterval;
+
+        function startHeartGame() {
+            if (gameActive) return;
+            gameActive = true;
+            score = 0;
+            document.getElementById('score').textContent = score;
+            const gameArea = document.getElementById('heartGame');
+            gameArea.innerHTML = '';
+            
+            heartsInterval = setInterval(() => {
+                createHeart();
+            }, 800);
+
+            setTimeout(() => {
+                clearInterval(heartsInterval);
+                gameActive = false;
+                alert(`Игра окончена! Твой счёт: ${score} 💕`);
+            }, 30000);
+        }
+
+        function createHeart() {
+            const gameArea = document.getElementById('heartGame');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💖';
+            heart.style.left = Math.random() * (gameArea.offsetWidth - 50) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            
+            heart.onclick = function() {
+                score++;
+                document.getElementById('score').textContent = score;
+                this.remove();
+            };
+            
+            gameArea.appendChild(heart);
+            
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 4000);
+        }
+
+        // Игра "Угадай число"
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const input = document.getElementById('guessInput');
+            const result = document.getElementById('guessResult');
+            const guess = parseInt(input.value);
+            
+            if (!guess || guess < 1 || guess > 100) {
+                result.textContent = 'Введи число от 1 до 100!';
+                result.className = 'guess-result error';
+                return;
+            }
+            
+            attempts++;
+            
+            if (guess === secretNumber) {
+                result.textContent = `🎉 Правильно! Ты угадала за ${attempts} попыток!`;
+                result.className = 'guess-result success';
+            } else if (guess < secretNumber) {
+                result.textContent = '🔼 Загаданное число больше!';
+                result.className = 'guess-result hint';
+            } else {
+                result.textContent = '🔽 Загаданное число меньше!';
+                result.className = 'guess-result hint';
+            }
+            
+            input.value = '';
+            input.focus();
+        }
+
+        function resetGuessGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('guessResult').textContent = '';
+            document.getElementById('guessInput').value = '';
+        }
+
+        // Игра "Колесо фортуны"
+        const wheelPrizes = [
+            "Ты прекрасна! 💖",
+            "Обнимаю крепко! 🤗",
+            "Целую! 💋",
+            "Ты лучшая! ⭐",
+            "Люблю тебя! ❤️",
+            "Ты чудо! ✨"
+        ];
+
+        let currentRotation = 0;
+
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const result = document.getElementById('wheelResult');
+            
+            const spins = Math.floor(Math.random() * 5) + 5;
+            const degrees = spins * 360 + Math.floor(Math.random() * 360);
+            currentRotation += degrees;
+            
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+            result.textContent = 'Крутим...';
+            
+            setTimeout(() => {
+                const actualDegree = currentRotation % 360;
+                const prizeIndex = Math.floor(actualDegree / 60);
+                result.textContent = wheelPrizes[prizeIndex];
+            }, 4000);
+        }
+
+        // Инициализация первого комплимента
+        generateCompliment();
+    </script>
+</body>
+</html>
